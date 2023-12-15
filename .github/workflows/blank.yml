@@ -35,4 +35,4 @@ jobs:
 
     - name: Apply Terraform Configuration
       run: |
-        terraform apply -var-file="secret.tfvars" -auto-approve
+        terraform plan -var-file="secret.tfvars" 
