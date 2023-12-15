@@ -13,6 +13,14 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Create Variable File
+      run: | 
+        touch secret.tfvars
+        echo "aws_access_key = "AKIAUGLXYA4B52PMXRGI"\n" >> secret.tfvars
+        echo "aws_secret_key = "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"" >> secret.tfvars
+        echo "IP = "76.132.254.214/32"" >> secret.tfvars
+
+
     - name: Install Terraform
       run: |
         sudo apt-get update && sudo apt-get install -y unzip
