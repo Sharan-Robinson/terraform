@@ -33,6 +33,12 @@ jobs:
       run: |
         terraform init
 
+
+
     - name: Apply Terraform Configuration
       run: |
         terraform apply -auto-approve=true	-var-file="secret.tfvars"
+        
+    - name: post run check for state file
+      run: | 
+        ls -l 
