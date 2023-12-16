@@ -33,10 +33,21 @@ jobs:
       run: |
         terraform init
 
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+          name: state-file
+          path: ./
+
+      
+
 
 
     - name: Apply Terraform Configuration
       run: |
+        rm terraform.tfstate
+        echo "tfstate was removed. Hope this works!" 
+        mv artifact/terraform.tfstate .
         terraform apply -auto-approve=true	-var-file="secret.tfvars"
         
     - name: post run check for state file
@@ -51,15 +62,5 @@ jobs:
           name: state-file
           path: artifact/
     
-    - name: Download Artifacts
-      uses: actions/download-artifact@v2
-      with:
-          name: state-file
-          path: ./
 
-    - name: check for artifact
-      run: |
-        ls
-        echo "Going inside artifact now"
-        cd artifact
-        ls 
+
