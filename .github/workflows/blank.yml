@@ -57,8 +57,9 @@ jobs:
           name: state-file
           path: ./
 
-    - name: Apply Terraform Configuration
+    - name: check for artifact
       run: |
         ls
+        echo "Going inside artifact now"
         cd artifact
         ls 
