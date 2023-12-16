@@ -35,5 +35,4 @@ jobs:
 
     - name: Apply Terraform Configuration
       run: |
-        terraform refresh
-        terraform plan -var-file="secret.tfvars" 
+        terraform apply -refresh=true	-var-file="secret.tfvars"
