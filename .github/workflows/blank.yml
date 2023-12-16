@@ -18,7 +18,7 @@ jobs:
         touch secret.tfvars
         echo aws_access_key = \"AKIAUGLXYA4B52PMXRGI\" >> secret.tfvars
         echo aws_secret_key = \"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\" >> secret.tfvars
-        echo IP = \"${{ secrets.IP }\" >> secret.tfvars
+        echo IP = \"${{ secrets.IP }}\" >> secret.tfvars
         cat secret.tfvars
 
     - name: Install Terraform
