@@ -42,3 +42,23 @@ jobs:
     - name: post run check for state file
       run: | 
         ls -l 
+        mkdir artifact
+        mv terraform.tfstate artifact/
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: state-file
+          path: artifact/
+    
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+          name: my-artifacts
+          path: ./
+
+    - name: Apply Terraform Configuration
+      run: |
+        ls
+        cd artifact
+        ls 
