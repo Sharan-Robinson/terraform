@@ -62,3 +62,5 @@ resource "aws_instance" "my_instance" {
   vpc_security_group_ids = [aws_security_group.my_sg.id]
 
 }
+
+#
