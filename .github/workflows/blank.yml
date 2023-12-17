@@ -33,11 +33,24 @@ jobs:
       run: |
         terraform init
 
-    # - name: Download Artifacts
-    #   uses: actions/download-artifact@v2
-    #   with:
-    #       name: state-file
-    #       path: ./
+    - name: post run check for state file
+      run: | 
+        ls -l 
+        mkdir artifact
+        mv terraform.tfstate artifact/
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+          name: state-file
+          path: artifact/
+          retention-days: 30
+
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+          name: state-file
+          path: ./
 
 
     - name: Apply Terraform Configuration
