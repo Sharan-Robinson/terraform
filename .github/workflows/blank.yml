@@ -13,15 +13,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up GitHub CLI
-      uses: actions/setup-gh@v0
-      with:
-          cli-version: 2.x
-
-    - name: Download artifacts
-      run: gh run download 7235668123 --workflow "Terraform Workflow"
-
-
     - name: Create Variable File
       run: | 
         touch secret.tfvars
@@ -42,37 +33,9 @@ jobs:
       run: |
         terraform init
 
-    - name: Get Run Number
-      id: get_run_number
-      run: |
-        echo "RUN_NUMBER=$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }} | jq -r '.run_number')" >> $GITHUB_ENV
-    
-    - name: Download Artifacts from Previous Run
-      uses: actions/download-artifact@v3
-      with:
-          name: state-file
-          run: 30
-          path: ./
-
     - name: Apply Terraform Configuration
       run: |
-        rm terraform.tfstate #delete this finally!!!
-        echo "tfstate was removed. Hope this works!" 
-        mv artifact/terraform.tfstate .
         terraform apply -auto-approve=true	-var-file="secret.tfvars"
-        
-    - name: post run check for state file
-      run: | 
-        ls -l 
-        mkdir artifact
-        mv terraform.tfstate artifact/
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-          name: state-file
-          path: artifact/
-          retention-days: 30
-    
+            
 
 
