@@ -1,4 +1,3 @@
-# terraform
 # Terraform AWS Infrastructure Setup Documentation
 
 This documentation provides instructions and details for setting up AWS infrastructure using Terraform, including AWS account creation, Terraform code writing, GitHub repository setup, and GitHub Actions workflow.
