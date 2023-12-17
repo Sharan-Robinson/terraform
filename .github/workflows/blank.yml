@@ -38,20 +38,11 @@ jobs:
       run: |
         echo "RUN_NUMBER=$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }} | jq -r '.run_number')" >> $GITHUB_ENV
     
-    - name: Download specific artifacts from previous run
-      uses: Marques/actions-download-artifact@v3
-      with:
-          workflow: "Terraform Workflow" # Name of the workflow with the artifacts
-          run-id: ${{ env.RUN_NUMBER }} # ID of the specific run containing the artifacts
-          artifacts: |
-            artifact-1.zip # Download specific artifact by name
-            artifact-2/* # Download all files within a directory of named artifact
-
-
-    - name: Download Artifacts
+    - name: Download Artifacts from Previous Run
       uses: actions/download-artifact@v2
       with:
           name: state-file
+          run: ${{ env.RUN_NUMBER }}
           path: ./
 
     - name: Apply Terraform Configuration
