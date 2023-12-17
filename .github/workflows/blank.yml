@@ -38,18 +38,18 @@ jobs:
       run: |
         echo "RUN_NUMBER=$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }} | jq -r '.run_number')" >> $GITHUB_ENV
     
-    - name: Download Artifacts from Previous Run
-      uses: actions/download-artifact@v2
-      with:
-          name: state-file
-          run: ${{ env.RUN_NUMBER }}
-          path: ./
+    # - name: Download Artifacts from Previous Run
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #       name: state-file
+    #       run: ${{ env.RUN_NUMBER }}
+    #       path: ./
 
     - name: Apply Terraform Configuration
       run: |
-        rm terraform.tfstate
+        # rm terraform.tfstate
         echo "tfstate was removed. Hope this works!" 
-        mv artifact/terraform.tfstate .
+        # mv artifact/terraform.tfstate .
         terraform apply -auto-approve=true	-var-file="secret.tfvars"
         
     - name: post run check for state file
