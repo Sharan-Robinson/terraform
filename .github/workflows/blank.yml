@@ -13,6 +13,15 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Set up GitHub CLI
+      uses: actions/setup-gh@v0
+      with:
+          cli-version: 2.x
+
+    - name: Download artifacts
+      run: gh run download 7235668123 --workflow "Terraform Workflow"
+
+
     - name: Create Variable File
       run: | 
         touch secret.tfvars
