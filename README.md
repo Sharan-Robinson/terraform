@@ -15,3 +15,4 @@
 - Create new action yml file and create a job with the previous steps.
 - Make github secrets for AWS access and secret keys in order secure them from the public.
 - Now whenever a commit is pushed to main, the action will run on its own. 
+ 
